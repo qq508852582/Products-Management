@@ -23,3 +23,11 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('clickAttached', { prevSubject: 'element' }, (subject) => {
+  cy.wrap(subject).should(($el) => {
+    // eslint-disable-next-line no-unused-expressions
+    expect(Cypress.dom.isDetached($el)).to.be.false;
+    $el.click();
+  });
+});
